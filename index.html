@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Circle of Fifths</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Interactive Circle of Fifths</h1>
+  <p> Helps to play chord progression for any note.The image below show chord progression for C major. Likewise rotate the circle for the required corresponding note and get the chord progression.</p>
+  
+  <div class="image-grid">
+    <div class="canvas-wrap">
+      <canvas id="canvas" width="400" height="400"></canvas>
+      <button id="saveBtn">Save Image</button>
+      <div class="info">Click circle to move or stop the grid</div>
+    </div>
+
+    <div class="img-wrap">
+      <img src="/assets/info.jpg" alt="comments">
+      <div class="grid">
+        <div class="number">I</div>
+        <div class="chord">C</div>
+        <div class="chords">maj7, maj9, maj11, maj13</div>
+        <div class="number">ii</div>
+        <div class="chord">D<span>m</span></div>
+        <div class="chords">m7, m9, m11, m6</div>
+        <div class="number">iii</div>
+        <div class="chord">E<span>m</span></div>
+        <div class="chords">m7</div>
+        <div class="number">IV</div>
+        <div class="chord">F</div>
+        <div class="chords">maj7, maj9, maj13 or 6</div>
+        <div class="number">V</div>
+        <div class="chord">G</div>
+        <div class="chords">7, 9, 11, sus4, 13</div>
+        <div class="number">vi</div>
+        <div class="chord">A<span>m</span></div>
+        <div class="chords">m7, m9, m11</div>
+        <div class="number">vii</div>
+        <div class="chord">B<span class="symbol">○</span></div>
+        <div class="chords">m7, m9, m11</div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="scripts.js"></script>
+</body>
+</html>
