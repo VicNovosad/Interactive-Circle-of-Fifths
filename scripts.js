@@ -63,4 +63,18 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 
 	canvas.addEventListener("click", toggleRotation); // Toggle rotation on/off with mouse clicks
+
+  document.getElementById('saveBtn').addEventListener('click', function() {
+    const canvas = document.getElementById('canvas');
+    const dataUrl = canvas.toDataURL('image/png'); // Get image data as a PNG URL
+
+    // Create a temporary link to initiate the download
+    const link = document.createElement('a');
+    link.download = 'canvas-image.png'; // Set the download filename
+    link.href = dataUrl;
+    document.body.appendChild(link); // Required for Firefox
+    link.click(); // Trigger the download
+    document.body.removeChild(link); // Clean up
+  });
+
 });
