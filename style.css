@@ -42,8 +42,12 @@ p{
 }
 
 canvas {
-  background-color: #f0f0f0;
+  background-color: rgba(0, 0, 0, 0);
   max-width: 100%;
+}
+
+canvas:hover {
+  cursor: grab;
 }
 
 .chord {
