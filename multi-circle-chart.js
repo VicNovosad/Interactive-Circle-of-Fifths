@@ -5,8 +5,6 @@ function MultiCircleChart(canvasId) {
 
   this.addConfig = function(config) {
       const sectorsQuantity = config.sectorsQuantity || config.keys.length;
-      // const circleInTheCenter = config.circleInTheCenter || false;
-      // console.log(circleInTheCenter);
       
       // Helper function to ensure arrays are of the correct length, filled with true if too short
       const ensureArrayLength = (array, length) => {
@@ -63,7 +61,6 @@ function MultiCircleChart(canvasId) {
 
       if (config.innerRadius > 0 && config.showBoundaryCircles) {
           this.drawBoundaryCircles(centerX, centerY, config);
-          console.log(config.innerRadius);
           if(config.circleInTheCenter){
             this.circleInTheCenter(config.innerRadius * 2 - 2, config.circleInTheCenter);
           }

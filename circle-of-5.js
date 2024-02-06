@@ -191,50 +191,66 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.removeChild(link); // Clean up
   });
 
-	// circleOfFiveChart.rotateChart(0, 120);
-	// circleOfFiveChart.rotateChart(1, 120);
-	// circleOfFiveChart.rotateChart(2, 120);
-	// circleOfFiveChart.rotateChart(3, -120);
+	function startRotation(x, y) {
+		const rect = canvas.getBoundingClientRect();
+		const inputX = x - rect.left;
+		const inputY = y - rect.top;
+		const centerX = canvas.width / 2;
+		const centerY = canvas.height / 2;
+		initialMouseAngle = Math.atan2(inputY - centerY, inputX - centerX);
+		isRotating = true;
+	}
+
+	function rotate(x, y) {
+			if (!isRotating) return;
+			const rect = canvas.getBoundingClientRect();
+			const inputX = x - rect.left;
+			const inputY = y - rect.top;
+			const centerX = canvas.width / 2;
+			const centerY = canvas.height / 2;
+			let currentMouseAngle = Math.atan2(inputY - centerY, inputX - centerX);
+			let angleDifference = currentMouseAngle - initialMouseAngle;
+			let newAngleDegrees = ((initialSliceAngle + angleDifference) * (180 / Math.PI));
+			newAngleDegrees = Math.round(newAngleDegrees / 30) * 30;
+			circleOfFiveChart.rotateChart([0,1,2], newAngleDegrees);
+	}
+
+	function endRotation() {
+			isRotating = false;
+			initialMouseAngle = null;
+	}
 
 	canvas.addEventListener("mousedown", function(event) {
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-
-    // Calculate the initial angle to mouse from the center of the canvas
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    initialMouseAngle = Math.atan2(mouseY - centerY, mouseX - centerX);
-    // initialSliceAngle = sliceAngle; // Assume sliceAngle is the current rotation angle of your chart
-    isRotating = true; // Enable rotation
+			startRotation(event.clientX, event.clientY);
 	});
 
 	canvas.addEventListener("mousemove", function(event) {
-    if (!isRotating) return; // Exit if not in rotation mode
-
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    let currentMouseAngle = Math.atan2(mouseY - centerY, mouseX - centerX);
-
-    // Calculate the difference in angle from when the mouse was pressed
-    let angleDifference = currentMouseAngle - initialMouseAngle;
-
-    // Calculate the new angle for the slice, snapping to 30 degrees
-    let newAngleDegrees = ((initialSliceAngle + angleDifference) * (180 / Math.PI));
-    newAngleDegrees = Math.round(newAngleDegrees / 30) * 30; // Snap to 30 degrees
-    sliceAngle = newAngleDegrees * (Math.PI / 180); // Convert back to radians
-
-    // Rotate the chart with snapping
-    circleOfFiveChart.rotateChart([0,1,2], newAngleDegrees);
+			rotate(event.clientX, event.clientY);
 	});
 
 	document.addEventListener("mouseup", function() {
-    isRotating = false; // Disable rotation
-    initialMouseAngle = null; // Reset initial mouse angle
+			endRotation();
+	});
+
+	// Touch event handlers
+	canvas.addEventListener('touchstart', function(event) {
+			if (event.touches.length === 1) {
+					const touch = event.touches[0];
+					startRotation(touch.clientX, touch.clientY);
+					event.preventDefault(); // Prevent scrolling
+			}
+	}, { passive: false });
+
+	canvas.addEventListener('touchmove', function(event) {
+			if (event.touches.length === 1) {
+					const touch = event.touches[0];
+					rotate(touch.clientX, touch.clientY);
+					event.preventDefault();
+			}
+	}, { passive: false });
+
+	canvas.addEventListener('touchend', function(event) {
+			endRotation();
 	});
 
 });
