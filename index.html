@@ -13,7 +13,10 @@
   
   <div class="image-grid">
     <div class="canvas-wrap">
-      <canvas id="canvas" width="550" height="550"></canvas>
+      <div class="canvas-container">
+        <canvas id="canvas" width="550" height="550"></canvas>
+        <div id="rotter"></div>
+      </div>
       <button id="saveBtn">Save Image</button>
       <!-- <div class="info">Grab and move the circle</div> -->
     </div>
@@ -46,7 +49,11 @@
     </div>
   </div>
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+
   <script src="multi-circle-chart.js"></script>
+  <script src="circle-of-5-sets.js"></script>
   <script src="circle-of-5.js"></script>
 </body>
 </html>

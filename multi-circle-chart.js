@@ -96,23 +96,12 @@ function MultiCircleChart(canvasId) {
       }
   };
 
-  // this.context.strokeStyle = 'blue';
   this.drawSectorLines = function(config, centerX, centerY, sectorAngle, sectorsAngle, index) {
       if (config.innerRadius > 0) {
           this.drawLeftSide(config, centerX, centerY, sectorAngle, sectorsAngle, index);
           this.drawRightSide(config, centerX, centerY, sectorAngle, sectorsAngle, index);
           this.drawTopArc(config, centerX, centerY, sectorAngle, sectorsAngle, index);
           this.drawBottomArc(config, centerX, centerY, sectorAngle, sectorsAngle, index);
-          
-          // this.context.beginPath();
-          // this.context.lineWidth = config.lineWidth;
-          // this.context.moveTo(centerX + Math.cos(sectorAngle - sectorsAngle / 2) * config.innerRadius, centerY + Math.sin(sectorAngle - sectorsAngle / 2) * config.innerRadius);
-          // this.context.lineTo(centerX + Math.cos(sectorAngle - sectorsAngle / 2) * config.outerRadius, centerY + Math.sin(sectorAngle - sectorsAngle / 2) * config.outerRadius);
-          // this.context.arc(centerX, centerY, config.outerRadius, sectorAngle - sectorsAngle / 2, sectorAngle + sectorsAngle / 2, false);
-          // this.context.lineTo(centerX + Math.cos(sectorAngle + sectorsAngle / 2) * config.innerRadius, centerY + Math.sin(sectorAngle + sectorsAngle / 2) * config.innerRadius);
-          // this.context.arc(centerX, centerY, config.innerRadius, sectorAngle + sectorsAngle / 2, sectorAngle - sectorsAngle / 2, true);
-          // this.context.closePath();
-          // this.context.stroke();
       }
   };
 
