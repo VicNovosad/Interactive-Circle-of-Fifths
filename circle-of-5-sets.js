@@ -43,7 +43,7 @@ const diminishedChords = {
 	circleRotation: -90, // Degrees
 	titlesRotation: -90, // Degrees
 	showBoundaryCircles: true,
-	circleInTheCenter: '#7a7a7a',
+	circleInTheCenter: '#4d4d4d',
 	keys: ['B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F', 'C', 'G', 'D', 'A', 'E'],
 	lineColor: '#000', // Black lines
 	// fillColors: ['#f0d681','#52b09e','#7cc4b4','#89b1d8','#879aaa','#b999a5','#bea8b0','#c16f65','#e49d73','#e58178','#e47743','#eec95b'],
