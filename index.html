@@ -1,59 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Circle of Fifths</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <h1>Interactive Circle of Fifths</h1>
-  <p> Helps to play chord progression for any note.The image below show chord progression for C major. Likewise rotate the circle for the required corresponding note and get the chord progression.</p>
-  
-  <div class="image-grid">
-    <div class="canvas-wrap">
-      <div class="canvas-container">
-        <canvas id="canvas" width="550" height="550"></canvas>
-        <div id="draggableRotator"></div>
-      </div>
-      <button id="saveBtn">Save Image</button>
-      <!-- <div class="info">Grab and move the circle</div> -->
+  <div class="container">
+    <div class="tab">
+      <button class="tab-links active" data-tab="Tab1">Circle of Fifths</button>
+      <button class="tab-links" data-tab="Tab2">Color Wheel</button>
     </div>
-
-    <div class="img-wrap">
-      <!-- <img src="/assets/info-white.png" alt="comments"> -->
-      <div class="grid">
-        <div class="number">I</div>
-        <div class="chord">C</div>
-        <div class="chords">maj7, maj9, maj11, maj13</div>
-        <div class="number">ii</div>
-        <div class="chord">D<span>m</span></div>
-        <div class="chords">m7, m9, m11, m6</div>
-        <div class="number">iii</div>
-        <div class="chord">E<span>m</span></div>
-        <div class="chords">m7</div>
-        <div class="number">IV</div>
-        <div class="chord">F</div>
-        <div class="chords">maj7, maj9, maj13 or 6</div>
-        <div class="number">V</div>
-        <div class="chord">G</div>
-        <div class="chords">7, 9, 11, sus4, 13</div>
-        <div class="number">vi</div>
-        <div class="chord">A<span>m</span></div>
-        <div class="chords">m7, m9, m11</div>
-        <div class="number">vii</div>
-        <div class="chord">B<span class="symbol">○</span></div>
-        <div class="chords">m7, m9, m11</div>
+    <div id="Tab1" class="tab-content">
+      <h1>Interactive Circle of Fifths</h1>
+      <p> Helps to play chord progression for any note.The image below show chord progression for C major. Likewise rotate
+        the circle for the required corresponding note and get the chord progression.</p>
+      <div class="image-grid">
+        <div class="canvas-wrap">
+          <div class="canvas-container">
+            <canvas id="canvas-circle-of-five" width="550" height="550"></canvas>
+            <div id="draggableRotator"></div>
+          </div>
+          <button id="saveBtn">Save Image</button>
+          <!-- <div class="info">Grab and move the circle</div> -->
+        </div>
+        <div class="img-wrap">
+          <!-- <img src="/assets/info-white.png" alt="comments"> -->
+          <div class="grid">
+            <div class="number">I</div>
+            <div class="chord">C</div>
+            <div class="chords">maj7, maj9, maj11, maj13</div>
+            <div class="number">ii</div>
+            <div class="chord">D<span>m</span></div>
+            <div class="chords">m7, m9, m11, m6</div>
+            <div class="number">iii</div>
+            <div class="chord">E<span>m</span></div>
+            <div class="chords">m7</div>
+            <div class="number">IV</div>
+            <div class="chord">F</div>
+            <div class="chords">maj7, maj9, maj13 or 6</div>
+            <div class="number">V</div>
+            <div class="chord">G</div>
+            <div class="chords">7, 9, 11, sus4, 13</div>
+            <div class="number">vi</div>
+            <div class="chord">A<span>m</span></div>
+            <div class="chords">m7, m9, m11</div>
+            <div class="number">vii</div>
+            <div class="chord">B<span class="symbol">○</span></div>
+            <div class="chords">m7, m9, m11</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="Tab2" class="tab-content" style="display: none;">
+      <h1>Color wheel</h1>
+      <p></p>
+      <div class="image-grid">
+        <div class="canvas-wrap">
+          <div class="canvas-container">
+            <canvas id="canvas-color-wheel" width="550" height="550"></canvas>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 
+  <script src="scripts.js"></script>
+
   <script src="multi-circle-chart.js"></script>
+
   <script src="circle-of-5-sets.js"></script>
   <script src="circle-of-5.js"></script>
+
+  <script src="color-wheel-sets.js"></script>
+
 </body>
+
 </html>

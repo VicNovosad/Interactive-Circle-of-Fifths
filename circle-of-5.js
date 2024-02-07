@@ -2,8 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 	gsap.registerPlugin(Draggable);
 	
-	const circleOfFiveChart = new MultiCircleChart('canvas');
-	const canvas = document.getElementById('canvas');
+	const circleOfFiveChart = new MultiCircleChart('canvas-circle-of-five');
+	const canvas = document.getElementById('canvas-circle-of-five');
 	const snapStep = 30;
 	
 	circleOfFiveChart.addConfig(majorChords);
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// circleOfFiveChart.rotateChart([0,1,2], newAngleDegrees);
 
 	document.getElementById('saveBtn').addEventListener('click', function() {
-    const canvas = document.getElementById('canvas');
+    const canvas = document.getElementById('canvas-circle-of-five');
     const dataUrl = canvas.toDataURL('image/png'); // Get image data as a PNG URL
 
     // Create a temporary link to initiate the download

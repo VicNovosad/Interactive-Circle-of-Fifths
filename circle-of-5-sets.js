@@ -1,5 +1,5 @@
 const majorChords = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 270,
 	innerRadius: 190, // Adjusted to fit as the outermost circle
 	sectorsQuantity: 0,
@@ -17,7 +17,7 @@ const majorChords = {
 };
 
 const minorChords = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 190,
 	innerRadius: 120, // Adjusted to fit between the major and dominant seventh chords
 	sectorsQuantity: 0, // if 0 it sectorsQuantity will be based on the number of keys[]
@@ -36,14 +36,14 @@ const minorChords = {
 };
 
 const diminishedChords = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 120,
 	innerRadius: 50, // Adjusted to fit between the major and dominant seventh chords
 	sectorsQuantity: 0, // if 0 it sectorsQuantity will be based on the number of keys[]
 	circleRotation: -90, // Degrees
 	titlesRotation: -90, // Degrees
 	showBoundaryCircles: true,
-	circleInTheCenter: '#4d4d4d',
+	circleInTheCenter: '#182951',
 	keys: ['B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F', 'C', 'G', 'D', 'A', 'E'],
 	lineColor: '#000', // Black lines
 	// fillColors: ['#f0d681','#52b09e','#7cc4b4','#89b1d8','#879aaa','#b999a5','#bea8b0','#c16f65','#e49d73','#e58178','#e47743','#eec95b'],
@@ -62,7 +62,7 @@ const diminishedChords = {
 };
 
 const majorRedFrameConfig = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 270,
 	innerRadius: 190, // Adjusted to fit as the outermost circle
 	sectorsQuantity: 12,
@@ -83,7 +83,7 @@ const majorRedFrameConfig = {
 };
 
 const manorRedFrameConfig = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 190,
 	innerRadius: 120, // Adjusted to fit as the outermost circle
 	sectorsQuantity: 0,
@@ -103,7 +103,7 @@ const manorRedFrameConfig = {
 };
 
 const diminishedRedFrameConfig = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 120,
 	innerRadius: 50, // Adjusted to fit as the outermost circle
 	sectorsQuantity: 0,
@@ -123,7 +123,7 @@ const diminishedRedFrameConfig = {
 };
 
 const secondaryDominantRedFrameConfig = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 270,
 	innerRadius: 190, // Adjusted to fit as the outermost circle
 	sectorsQuantity: 12,
@@ -143,7 +143,7 @@ const secondaryDominantRedFrameConfig = {
 };
 
 const secondaryDominant2RedFrameConfig = {
-	canvasId: 'canvas',
+	canvasId: 'canvas-circle-of-five',
 	outerRadius: 270,
 	innerRadius: 190, // Adjusted to fit as the outermost circle
 	sectorsQuantity: 12,
