@@ -10,7 +10,8 @@ const majorChords = {
 	// fillColors: ['rgba(205, 133, 63, 0.4)','rgba(184, 134, 11, 0.4)','rgba(189, 183, 107, 0.4)','rgba(154, 205, 50, 0.4)','rgba(107, 142, 35, 0.4)','rgba(32, 178, 170, 0.4)','rgba(47, 79, 79, 0.4)','rgba(70, 120, 180, 0.4)','rgba(65, 105, 225, 0.4)','rgba(72, 61, 139, 0.4)','rgba(148, 0, 211, 0.4)','rgba(199, 21, 133, 0.4)']
 	// fillColors: ['rgba(240,255,240, 1)','rgba(245,255,250, 1)','rgba(240,255,255, 1)','rgba(240,248,255, 1)','rgba(248,248,255, 1)','rgba(245,245,245, 1)','rgba(255,245,238, 1)','rgba(245,245,220, 1)','rgba(253,245,230, 1)','rgba(255,250,240, 1)','rgba(255,255,240, 1)','rgba(250,235,215, 1)'],
 	// fillColors: ['#f0d681','#52b09e','#7cc4b4','#89b1d8','#879aaa','#b999a5','#bea8b0','#c16f65','#e49d73','#e58178','#e47743','#eec95b'],
-	fillColors: ['#fde439','#cddf7f','#b4cfb4','#9abdb0','#84c5dd','#98a8d4','#be9cc6','#e09ebe','#f3a5a7','#f0a47c','#f3ae5f','#f29077'],
+	// fillColors: ['#fde439','#cddf7f','#b4cfb4','#9abdb0','#84c5dd','#98a8d4','#be9cc6','#e09ebe','#f3a5a7','#f0a47c','#f3ae5f','#f29077'],
+	fillColors: ['#f5e85b','#c8d992','#a9d5be','#83c4ca','#75c0d7','#8584bd','#be83b1','#eb91b5','#ef999c','#f79c41','#f4c93c','#f5e85b'],
 	textSize: '26px',
 	textWeight: '700'
 };
@@ -28,7 +29,8 @@ const minorChords = {
 	// fillColors: ['rgba(250,128,114, .6)', 'LightPink', 'rgba(255,127,80, .7)', 'Khaki', 'Plum', 'LightGreen', 'MediumAquamarine', 'PaleTurquoise', 'LightBlue', 'BlanchedAlmond', 'Honeydew', 'MistyRose']
 	// fillColors: ['rgba(240,255,240, 1)','rgba(245,255,250, 1)','rgba(240,255,255, 1)','rgba(240,248,255, 1)','rgba(248,248,255, 1)','rgba(245,245,245, 1)','rgba(255,245,238, 1)','rgba(245,245,220, 1)','rgba(253,245,230, 1)','rgba(255,250,240, 1)','rgba(255,255,240, 1)','rgba(250,235,215, 1)'],
 	// fillColors: ['#f0d681','#52b09e','#7cc4b4','#89b1d8','#879aaa','#b999a5','#bea8b0','#c16f65','#e49d73','#e58178','#e47743','#eec95b'],
-	fillColors: ['#fde439','#cddf7f','#b4cfb4','#9abdb0','#84c5dd','#98a8d4','#be9cc6','#e09ebe','#f3a5a7','#f0a47c','#f3ae5f','#f29077'],
+	// fillColors: ['#fde439','#cddf7f','#b4cfb4','#9abdb0','#84c5dd','#98a8d4','#be9cc6','#e09ebe','#f3a5a7','#f0a47c','#f3ae5f','#f29077'],
+  fillColors: ['#f5e85b','#c8d992','#a9d5be','#83c4ca','#75c0d7','#8584bd','#be83b1','#eb91b5','#ef999c','#f79c41','#f4c93c','#f5e85b'],
 	textSize: '18px',
 	textWeight: '700'
 };
@@ -41,11 +43,12 @@ const diminishedChords = {
 	circleRotation: -90, // Degrees
 	titlesRotation: -90, // Degrees
 	showBoundaryCircles: true,
-	circleInTheCenter: 'white',
+	circleInTheCenter: '#7a7a7a',
 	keys: ['B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F', 'C', 'G', 'D', 'A', 'E'],
 	lineColor: '#000', // Black lines
 	// fillColors: ['#f0d681','#52b09e','#7cc4b4','#89b1d8','#879aaa','#b999a5','#bea8b0','#c16f65','#e49d73','#e58178','#e47743','#eec95b'],
-	fillColors: ['#fde439','#cddf7f','#b4cfb4','#9abdb0','#84c5dd','#98a8d4','#be9cc6','#e09ebe','#f3a5a7','#f0a47c','#f3ae5f','#f29077'],
+	// fillColors: ['#fde439','#cddf7f','#b4cfb4','#9abdb0','#84c5dd','#98a8d4','#be9cc6','#e09ebe','#f3a5a7','#f0a47c','#f3ae5f','#f29077'],
+  fillColors: ['#f5e85b','#c8d992','#a9d5be','#83c4ca','#75c0d7','#8584bd','#be83b1','#eb91b5','#ef999c','#f79c41','#f4c93c','#f5e85b'],
 	// fillColors: [], // Alternating colors for sectors
 	// textColor: 'white',
 	// showTopSectorsArc: [true, true, true, true, true, true, true, true, true, true, true, true],
@@ -106,7 +109,7 @@ const diminishedRedFrameConfig = {
 	sectorsQuantity: 0,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
-	keys: ['', '', '', '', '', '', '', '', '', '', '', ''],
+	keys: ['', 'vii', '', '', '', '', '', '', '', '', '', ''],
 	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
 	showTopSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
 	showLeftSectorsLine: [false, true, false, false, false, false, false, false, false, false, false, false],

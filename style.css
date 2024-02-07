@@ -3,18 +3,26 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: #eee; */
+  background: linear-gradient(170deg, #828282 0%, #4d4d4d 100%);
+  color: white;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
+h1,
 p{
   max-width: 800px;
+  padding: 0 20px;
+  text-align: center;
 }
 
 .image-grid{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 40px;
@@ -95,7 +103,7 @@ canvas {
 }
 
 .grid div{
-  height: 25px;
+  /* height: 25px; */
 }
 
 @media only screen and (max-width: 500px){
