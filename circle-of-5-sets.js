@@ -65,12 +65,13 @@ const majorRedFrameConfig = {
 	sectorsQuantity: 12,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
-	keys: ['IV', 'I (Key)', 'V', '', '', '', '', '', '', '', '', 'IV'],
-	showSectors: [true, true, true, false, false, false, false, false, false, false, false, false],
+	keys: ['IV', 'I (Key)', 'V', '', '', '', '', '', '', '', '', ''],
+	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
 	showTopSectorsArc: [true, true, true, true, false, false, false, false, false, false, false, false],
 	showLeftSectorsLine: [true, false, false, false, false, false, false, false, false, false, false, false],
 	showRightSectorsLine: [false, false, true, false, false, false, false, false, false, false, false, false],
 	showBottomSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
+  fillColors: ['rgba(255, 255, 255, 0)','rgba(255, 255, 255, 0)','rgba(255, 255, 255, 0)','rgba(255, 255, 255, 0)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, 0)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)'],
 	lineColor: '#ff0303',
 	lineWidth: 5,
 	textSize: '14px',
@@ -86,11 +87,12 @@ const manorRedFrameConfig = {
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
 	keys: ['ii', 'iii', 'iv', '', '', '', '', '', '', '', '', ''],
-	showSectors: [true, true, true, false, false, false, false, false, false, false, false, false],
+	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
 	showTopSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
 	showLeftSectorsLine: [true, false, false, false, false, false, false, false, false, false, false, false],
 	showRightSectorsLine: [false, false, true, false, false, false, false, false, false, false, false, false],
 	showBottomSectorsArc: [true, false, true, false, false, false, false, false, false, false, false, false],
+  fillColors: ['rgba(255, 255, 255, 0)','rgba(255, 255, 255, 0)','rgba(255, 255, 255, 0)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)'],
 	lineColor: '#ff0303',
 	lineWidth: 5,
 	textSize: '14px',
@@ -104,12 +106,13 @@ const diminishedRedFrameConfig = {
 	sectorsQuantity: 0,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
-	keys: ['ii', 'iii', 'iv', '', '', '', '', '', '', '', '', ''],
-	showSectors: [false, true, false, false, false, false, false, false, false, false, false, false],
+	keys: ['', '', '', '', '', '', '', '', '', '', '', ''],
+	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
 	showTopSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
 	showLeftSectorsLine: [false, true, false, false, false, false, false, false, false, false, false, false],
 	showRightSectorsLine: [false, true, false, false, false, false, false, false, false, false, false, false],
 	showBottomSectorsArc: [false, true, false, false, false, false, false, false, false, false, false, false],
+  fillColors: ['rgba(255, 255, 255, .25)','rgba(255, 255, 255, 0)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)','rgba(255, 255, 255, .25)'],
 	lineColor: '#ff0303',
 	lineWidth: 5,
 	textSize: '14px',
