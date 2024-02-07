@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			// Animate the draggableRotator element to the snapped rotation
 			gsap.to(this.target, {
 				rotation: snapRotation,
-				duration: .5, // Adjust the duration for a smoother transition
-				ease: "ease", // Apply an easing function for a smoother effect
+				duration: 1, // Adjust the duration for a smoother transition
+				ease: "sine.inOut", // Apply an easing function for a smoother effect
 				onUpdate: () => {
 					// Synchronize the chart's rotation with the draggableRotator element during the animation
 					const currentRotation = gsap.getProperty(this.target, "rotation");
