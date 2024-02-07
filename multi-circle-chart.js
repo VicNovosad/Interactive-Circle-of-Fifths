@@ -7,9 +7,9 @@ function MultiCircleChart(canvasId) {
       const sectorsQuantity = config.sectorsQuantity || config.keys.length;
       
       // Helper function to ensure arrays are of the correct length, filled with true if too short
-      const ensureArrayLength = (array, length) => {
+      const ensureArrayLength = (array, length, fillValue = true) => {
         if (array.length < length) {
-            return array.concat(new Array(length - array.length).fill(true));
+            return array.concat(new Array(length - array.length).fill(fillValue));
         }
           return array;
       };
@@ -18,23 +18,26 @@ function MultiCircleChart(canvasId) {
           outerRadius: config.outerRadius,
           innerRadius: config.innerRadius,
           sectorsQuantity: sectorsQuantity,
-          circleRotation: config.circleRotation * Math.PI / 180, // Convert degrees to radians
+          showSectors: config.showSectors || [],
+          circleRotation: config.circleRotation * Math.PI / 180 || 0, // Convert degrees to radians
           titlesRotation: config.titlesRotation * Math.PI / 180, // Convert degrees to radians
-          keys: config.keys,
+          keys: ensureArrayLength(config.keys || [], sectorsQuantity, ''),
+
           lineColor: config.lineColor || 'black', // Default line color
           lineWidth: config.lineWidth || 1, // Default line width
           fillColors: config.fillColors || [], // Default to empty array
-          textColor: config.textColor || 'black', // Default text color
+          
           textSize: config.textSize || '16px', // Default text size
+          textColor: config.textColor || 'black', // Default text color
           textWeight: config.textWeight || 'normal', // Default text weight
           textXShift: config.textXShift || 0, // Default X shift of 0
           textYShift: config.textYShift || 0, // Default Y shift of 0
-          showSectors: config.showSectors || [],
-          showBoundaryCircles: config.showBoundaryCircles !== undefined ? config.showBoundaryCircles : false, // Default to false
+          
           showLeftSectorsLine:  ensureArrayLength(config.showLeftSectorsLine || [], sectorsQuantity),
           showRightSectorsLine:  ensureArrayLength(config.showRightSectorsLine || [], sectorsQuantity),
           showBottomSectorsArc:  ensureArrayLength(config.showBottomSectorsArc || [], sectorsQuantity),
           showTopSectorsArc:  ensureArrayLength(config.showTopSectorsArc || [], sectorsQuantity),
+          showBoundaryCircles: config.showBoundaryCircles !== undefined ? config.showBoundaryCircles : false, // Default to false
           circleInTheCenter: config.circleInTheCenter || false,
       });
   };
