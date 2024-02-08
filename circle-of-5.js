@@ -91,6 +91,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 	}
 	// });
 
+// Initialize variables to store the current rotation for each chart
+let currentRotation = {
+	1: 0, // Initial rotation for chart 1
+	2: 0  // Initial rotation for chart 2
+};
+
+function updateChart(chartId, rotation) {
+	// Update the current rotation state
+	currentRotation[chartId] = rotation;
+	
+	// Continue with rotating the chart
+	ColorWheel.rotateChart(chartId, rotation);
+}
+
+
 function getRandomSpeed(minSpeed, maxSpeed) {
 	return Math.random() * (maxSpeed - minSpeed) + minSpeed;
 }
@@ -111,83 +126,70 @@ function updateChart(chartId, rotation) {
 
 // Function to initialize or reinitialize the animation with new random parameters
 function initializeAnimation() {
-    let tl = gsap.timeline({repeat: -1, paused: true});
+	let tl = gsap.timeline({paused: true, repeat: -1, yoyo: true});
 
-    // Define minimum and maximum speeds (degrees per second)
-    const minSpeed = 20;
-    const maxSpeed = 60;
+	const minSpeed = 20;
+	const maxSpeed = 60;
 
-    tl.to({rotation: 0}, {
-        rotation: getRandomDirection(), // Random direction
-        duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)), // Random speed
-        ease: "ease",
-        onUpdate: function() {
-            updateChart(0, this.targets()[0].rotation);
-        }
-    }, 0);
-    tl.to({rotation: 0}, {
-        rotation: getRandomDirection(), // Random direction
-        duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)), // Random speed
-        ease: "ease",
-        onUpdate: function() {
-            updateChart(1, this.targets()[0].rotation);
-        }
-    }, 0);
-    tl.to({rotation: 0}, {
-        rotation: getRandomDirection(), // Random direction
-        duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)), // Random speed
-        ease: "ease",
-        onUpdate: function() {
-            updateChart(2, this.targets()[0].rotation);
-        }
-    }, 0);
-    tl.to({rotation: 0}, {
-        rotation: getRandomDirection(), // Random direction
-        duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)), // Random speed
-        ease: "ease",
-        onUpdate: function() {
-            updateChart(3, this.targets()[0].rotation);
-        }
-    }, 0);
-    tl.to({rotation: 0}, {
-        rotation: getRandomDirection(), // Random direction
-        duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)), // Random speed
-        ease: "ease",
-        onUpdate: function() {
-            updateChart(4, this.targets()[0].rotation);
-        }
-    }, 0);
-    tl.to({rotation: 0}, {
-        rotation: getRandomDirection(), // Random direction
-        duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)), // Random speed
-        ease: "ease",
-        onUpdate: function() {
-            updateChart(5, this.targets()[0].rotation);
-        }
-    }, 0);
-    tl.to({rotation: 0}, {
-        rotation: getRandomDirection(), // Random direction
-        duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)), // Random speed
-        ease: "ease",
-        onUpdate: function() {
-            updateChart(6, this.targets()[0].rotation);
-        }
-    }, 0);
+	// Use the current rotation as the starting point for the animation
+	tl.to({rotation: currentRotation[1]}, {
+			rotation: getRandomDirection() + currentRotation[1], // Adjust target based on current rotation
+			duration: 20,
+			// duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)),
+			ease: "none",
+			onUpdate: function() {
+					updateChart(0, this.targets()[0].rotation);
+			}
+	}, 0);
 
-    return tl;
+	tl.to({rotation: currentRotation[2]}, {
+			rotation: getRandomDirection() + currentRotation[2], // Adjust target based on current rotation
+			duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)),
+			ease: "none",
+			onUpdate: function() {
+					updateChart(2, this.targets()[0].rotation);
+			}
+	}, 0);
+	tl.to({rotation: currentRotation[2]}, {
+			rotation: getRandomDirection() + currentRotation[2], // Adjust target based on current rotation
+			duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)),
+			ease: "none",
+			onUpdate: function() {
+					updateChart(4, this.targets()[0].rotation);
+			}
+	}, 0);
+	tl.to({rotation: currentRotation[2]}, {
+			rotation: getRandomDirection() + currentRotation[2], // Adjust target based on current rotation
+			duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)),
+			ease: "none",
+			onUpdate: function() {
+					updateChart(5, this.targets()[0].rotation);
+			}
+	}, 0);
+	tl.to({rotation: currentRotation[2]}, {
+			rotation: getRandomDirection() + currentRotation[2], // Adjust target based on current rotation
+			duration: calculateDurationFromSpeed(getRandomSpeed(minSpeed, maxSpeed)),
+			ease: "none",
+			onUpdate: function() {
+					updateChart(7, this.targets()[0].rotation);
+			}
+	}, 0);
+
+	return tl;
 }
+
 
 const canvasColorWheel = document.getElementById('canvas-color-wheel');
 
 let currentAnimation = null; // Hold the current animation timeline
+currentAnimation = initializeAnimation();
 
 canvasColorWheel.addEventListener('mouseenter', function() {
     // Stop and clear the current animation if it exists
     if (currentAnimation) {
-        currentAnimation.kill();
+        // currentAnimation.kill();
     }
     // Initialize a new animation with random parameters
-    currentAnimation = initializeAnimation();
     currentAnimation.play();
 });
 
