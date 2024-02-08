@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Circle of Fifths</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="switch.css">
 </head>
 
 <body>
@@ -25,35 +26,88 @@
             <canvas id="canvas-circle-of-five" width="550" height="550"></canvas>
             <div id="draggableRotator"></div>
           </div>
-          <button id="saveBtn">Save Image</button>
+          <button id="saveBtn" class="button-neumorphism">Save Image</button>
           <!-- <div class="info">Grab and move the circle</div> -->
+
+
+          <div class="switch-wrap">
+            <label class="switch">
+              <input class="switch_input" type="checkbox" role="switch" id="rotateWordsSwitch">
+              <span class="switch_base-outer"></span>
+              <span class="switch_base-inner"></span>
+              <svg class="switch_base-neon" viewBox="0 0 40 24" width="40px" height="24px">
+                <defs>
+                  <filter id="switch-glow">
+                    <feGaussianBlur result="coloredBlur" stddeviation="1"></feGaussianBlur>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"></feMergeNode>
+                      <feMergeNode in="SourceGraphic"></feMergeNode>
+                    </feMerge>
+                  </filter>
+                  <linearGradient id="switch-gradient1" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="hsl(var(--on-hue1),90%,70%)" />
+                    <stop offset="100%" stop-color="hsl(var(--on-hue2),90%,70%)" />
+                  </linearGradient>
+                  <linearGradient id="switch-gradient2" x1="0.7" y1="0" x2="0.3" y2="1">
+                    <stop offset="25%" stop-color="hsla(var(--on-hue1),90%,70%,0)" />
+                    <stop offset="50%" stop-color="hsla(var(--on-hue1),90%,70%,0.3)" />
+                    <stop offset="100%" stop-color="hsla(var(--on-hue2),90%,70%,0.3)" />
+                  </linearGradient>
+                </defs>
+                <path fill="none" filter="url(#switch-glow)" stroke="url(#switch-gradient1)" stroke-width="1" stroke-dasharray="0 104.26 0" stroke-dashoffset="0.01" stroke-linecap="round" d="m.5,12C.5,5.649,5.649.5,12,.5h16c6.351,0,11.5,5.149,11.5,11.5s-5.149,11.5-11.5,11.5H12C5.649,23.5.5,18.351.5,12Z" />
+              </svg>
+              <span class="switch_knob-shadow"></span>
+              <span class="switch_knob-container">
+                <span class="switch_knob">
+                  <svg class="switch_knob-neon" viewBox="0 0 48 48" width="48px" height="48px">
+                    <circle fill="none" stroke="url(#switch-gradient2)" stroke-dasharray="0 90.32 0 54.19" stroke-linecap="round" stroke-width="1" r="23" cx="24" cy="24" transform="rotate(-112.5,24,24)" />
+                  </svg>
+                </span>
+              </span>
+              <span class="switch_led"></span>
+              <span class="switch_text">Power</span>
+            </label>
+            
+          </div>
+
+
+
         </div>
-        <div class="img-wrap">
-          <!-- <img src="/assets/info-white.png" alt="comments"> -->
-          <div class="grid">
-            <div class="number">I</div>
-            <div class="chord">C</div>
-            <div class="chords">maj7, maj9, maj11, maj13</div>
-            <div class="number">ii</div>
-            <div class="chord">D<span>m</span></div>
-            <div class="chords">m7, m9, m11, m6</div>
-            <div class="number">iii</div>
-            <div class="chord">E<span>m</span></div>
-            <div class="chords">m7</div>
-            <div class="number">IV</div>
-            <div class="chord">F</div>
-            <div class="chords">maj7, maj9, maj13 or 6</div>
-            <div class="number">V</div>
-            <div class="chord">G</div>
-            <div class="chords">7, 9, 11, sus4, 13</div>
-            <div class="number">vi</div>
-            <div class="chord">A<span>m</span></div>
-            <div class="chords">m7, m9, m11</div>
-            <div class="number">vii</div>
-            <div class="chord">B<span class="symbol">○</span></div>
-            <div class="chords">m7, m9, m11</div>
+
+        <div class="right-panel">
+          <div class="img-wrap">
+            <!-- <label class="switch">
+              <input type="checkbox" >
+              <span class="slider round"></span>
+            </label> -->
+            <!-- <img src="/assets/info-white.png" alt="comments"> -->
+            <div class="grid">
+              <div class="number">I</div>
+              <div class="chord">C</div>
+              <div class="chords">maj7, maj9, maj11, maj13</div>
+              <div class="number">ii</div>
+              <div class="chord">D<span>m</span></div>
+              <div class="chords">m7, m9, m11, m6</div>
+              <div class="number">iii</div>
+              <div class="chord">E<span>m</span></div>
+              <div class="chords">m7</div>
+              <div class="number">IV</div>
+              <div class="chord">F</div>
+              <div class="chords">maj7, maj9, maj13 or 6</div>
+              <div class="number">V</div>
+              <div class="chord">G</div>
+              <div class="chords">7, 9, 11, sus4, 13</div>
+              <div class="number">vi</div>
+              <div class="chord">A<span>m</span></div>
+              <div class="chords">m7, m9, m11</div>
+              <div class="number">vii</div>
+              <div class="chord">B<span class="symbol">○</span></div>
+              <div class="chords">m7, m9, m11</div>
+            </div>
           </div>
         </div>
+
+
       </div>
     </div>
     <div id="Tab2" class="tab-content" style="display: none;">

@@ -1,0 +1,319 @@
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--hue: 223;
+	--off-hue: 3;
+	--on-hue1: 123;
+	--on-hue2: 168;
+	--fg: hsl(var(--hue), 10%, 90%);
+	--primary: hsl(var(--hue), 90%, 50%);
+	--trans-dur: 0.6s;
+	--trans-timing: cubic-bezier(0.65, 0, 0.35, 1);
+  --alpha: 0.7;
+	/* font-size: calc(40px + (60 - 40) * (100vw - 320px) / (2560 - 320)); */
+}
+
+body,
+input {
+	font: 1em/1.5 sans-serif;
+}
+
+html{
+  background-image: url("/assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body {
+	color: var(--fg);
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+	transition: background-color var(--trans-dur), color var(--trans-dur);
+  background: linear-gradient(45deg, hsla(var(--hue), 10%, 20%, var(--alpha)), hsla(var(--hue), 10%, 10%, var(--alpha)));
+}
+
+.switch,
+.switch_input {
+	-webkit-tap-highlight-color: #0000;
+}
+
+.canvas-wrap{
+  position: relative;
+}
+
+.switch-wrap {
+  position: absolute;
+  transform: translate(10px, 100%);
+  bottom: 0;
+  left: 0;
+}
+
+#saveBtn{
+  position: absolute;
+  transform: translate(-10px, 115%);
+  bottom: 0;
+  right: 0;
+}
+
+.switch {
+	display: block;
+	/* margin: auto; */
+	position: relative;
+	width: 5em;
+	height: 3em;
+}
+
+.switch_base-outer,
+.switch_base-inner {
+	display: block;
+	position: absolute;
+}
+
+.switch_base-outer {
+	border-radius: 1.25em;
+	box-shadow: -0.125em -0.125em 0.25em hsl(var(--hue), 10%, 30%),
+		0.125em 0.125em 0.125em hsl(var(--hue), 10%, 30%) inset,
+		0.125em 0.125em 0.25em hsl(0, 0%, 0%),
+		-0.125em -0.125em 0.125em hsl(var(--hue), 10%, 5%) inset;
+	top: 0.125em;
+	left: 0.125em;
+	width: 4.75em;
+	height: 2.75em;
+}
+
+.switch_base-inner {
+	border-radius: 1.125em;
+	box-shadow: -0.25em -0.25em 0.25em hsl(var(--hue), 10%, 30%) inset,
+		0.0625em 0.0625em 0.125em hsla(var(--hue), 10%, 30%),
+		0.125em 0.25em 0.25em hsl(var(--hue), 10%, 5%) inset,
+		-0.0625em -0.0625em 0.125em hsla(var(--hue), 10%, 5%);
+	top: 0.375em;
+	left: 0.375em;
+	width: 4.25em;
+	height: 2.25em;
+}
+
+.switch_base-neon {
+	display: block;
+	overflow: visible;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+}
+
+.switch_base-neon path {
+	stroke-dasharray: 0 104.26 0;
+	transition: stroke-dasharray var(--trans-dur) var(--trans-timing);
+}
+
+.switch_input {
+	outline: transparent;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.switch_input:before {
+	border-radius: 0.125em;
+	box-shadow: 0 0 0 0.125em hsla(var(--hue), 90%, 50%, 0);
+	content: "";
+	display: block;
+	position: absolute;
+	inset: -0.125em;
+	transition: box-shadow 0.15s linear;
+}
+
+.switch_input:focus-visible:before {
+	box-shadow: 0 0 0 0.125em var(--primary);
+}
+
+.switch_knob,
+.switch_knob-container {
+	border-radius: 1em;
+	display: block;
+	position: absolute;
+}
+
+.switch_knob {
+	background-color: hsl(var(--hue), 10%, 15%);
+	background-image: radial-gradient(
+			88% 88% at 50% 50%,
+			hsl(var(--hue), 10%, 20%) 47%,
+			hsla(var(--hue), 10%, 20%, 0) 50%
+		),
+		radial-gradient(
+			88% 88% at 47% 47%,
+			hsl(var(--hue), 10%, 85%) 45%,
+			hsla(var(--hue), 10%, 85%, 0) 50%
+		),
+		radial-gradient(
+			65% 70% at 40% 60%,
+			hsl(var(--hue), 10%, 20%) 46%,
+			hsla(var(--hue), 10%, 20%, 0) 50%
+		);
+	box-shadow: -0.0625em -0.0625em 0.0625em hsl(var(--hue), 10%, 15%) inset,
+		-0.125em -0.125em 0.0625em hsl(var(--hue), 10%, 5%) inset,
+		0.75em 0.25em 0.125em hsla(0, 0%, 0%, 0.8);
+	width: 2em;
+	height: 2em;
+	transition: transform var(--trans-dur) var(--trans-timing);
+}
+
+.switch_knob-container {
+	overflow: hidden;
+	top: 0.5em;
+	left: 0.5em;
+	width: 4em;
+	height: 2em;
+}
+
+.switch_knob-neon {
+	display: block;
+	width: 2em;
+	height: auto;
+}
+
+.switch_knob-neon circle {
+	opacity: 0;
+	stroke-dasharray: 0 90.32 0 54.19;
+	transition: opacity var(--trans-dur) steps(1, end),
+		stroke-dasharray var(--trans-dur) var(--trans-timing);
+}
+
+.switch_knob-shadow {
+	border-radius: 50%;
+	box-shadow: 0.125em 0.125em 0.125em hsla(0, 0%, 0%, 0.9);
+	display: block;
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	width: 2em;
+	height: 2em;
+	transition: transform var(--trans-dur) var(--trans-timing);
+}
+
+.switch_led {
+	background-color: hsl(var(--off-hue), 90%, 70%);
+	border-radius: 50%;
+	box-shadow: 0 -0.0625em 0.0625em hsl(var(--off-hue), 90%, 40%) inset,
+		0 0 0.125em hsla(var(--off-hue), 90%, 70%, 0.3),
+		0 0 0.125em hsla(var(--off-hue), 90%, 70%, 0.3),
+		0.125em 0.125em 0.125em hsla(0, 0%, 0%, 0.5);
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0.25em;
+	height: 0.25em;
+	transition: background-color var(--trans-dur) var(--trans-timing),
+		box-shadow var(--trans-dur) var(--trans-timing);
+}
+
+.switch_text {
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+}
+
+.switch_input:checked ~ .switch_led {
+	background-color: hsl(var(--on-hue1), 90%, 70%);
+	box-shadow: 0 -0.0625em 0.0625em hsl(var(--on-hue1), 90%, 40%) inset,
+		0 -0.125em 0.125em hsla(var(--on-hue1), 90%, 70%, 0.3),
+		0 0.125em 0.125em hsla(var(--on-hue1), 90%, 70%, 0.3),
+		0.125em 0.125em 0.125em hsla(0, 0%, 0%, 0.5);
+}
+
+.switch_input:checked ~ .switch_base-neon path {
+	stroke-dasharray: 52.13 0 52.13;
+}
+
+.switch_input:checked ~ .switch_knob-shadow,
+.switch_input:checked ~ .switch_knob-container .switch_knob {
+	transform: translateX(100%);
+}
+
+.switch_input:checked ~ .switch_knob-container .switch_knob-neon circle {
+	opacity: 1;
+	stroke-dasharray: 45.16 0 45.16 54.19;
+	transition-timing-function: steps(1, start), var(--trans-timing);
+}
+
+
+/* button */
+  .button-neumorphism {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: hsl(var(--hue), 10%, 20%);
+    color: var(--fg);
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    box-shadow: -5px -5px 10px hsl(var(--hue), 10%, 25%), 
+                5px 5px 10px hsl(var(--hue), 10%, 15%);
+    transition: all 0.3s ease;
+  }
+  
+  .button-neumorphism:hover {
+    box-shadow: -2px -2px 5px hsl(var(--hue), 10%, 25%), 
+                2px 2px 5px hsl(var(--hue), 10%, 15%);
+  }
+  
+  .button-neumorphism:active {
+    box-shadow: inset -2px -2px 5px hsl(var(--hue), 10%, 25%), 
+                inset 2px 2px 5px hsl(var(--hue), 10%, 15%);
+  }
+ 
+/* tabs */
+
+.tab {
+  display: flex;
+  justify-content: start;
+  gap: 10px; /* Adjust the gap between buttons as needed */
+  background-color: hsl(var(--hue), 10%, 20%); /* Background color of the tab container */
+  padding: 12px 20px; /* Padding around the buttons */
+  border-radius: 10px; /* Soft rounded corners for the container */
+  box-shadow: -5px -5px 10px hsl(var(--hue), 10%, 18%), 
+              5px 5px 10px hsl(var(--hue), 10%, 10%); /* Neumorphism shadow */
+}
+
+.tab-links {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: hsl(var(--hue), 10%, 20%);
+  color: var(--fg);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: -5px -5px 10px hsl(var(--hue), 10%, 25%), 
+              5px 5px 10px hsl(var(--hue), 10%, 15%);
+}
+
+.tab-links:hover {
+  box-shadow: -2px -2px 5px hsl(var(--hue), 10%, 25%), 
+              2px 2px 5px hsl(var(--hue), 10%, 15%);
+}
+
+.tab-links.active,
+.tab-links:active {
+  box-shadow: inset -2px -2px 5px hsl(var(--hue), 10%, 25%), 
+              inset 2px 2px 5px hsl(var(--hue), 10%, 15%);
+}
