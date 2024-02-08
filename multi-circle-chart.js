@@ -4,42 +4,60 @@ function MultiCircleChart(canvasId) {
   this.configs = []; // Array to hold multiple chart configurations
 
   this.addConfig = function(config) {
-      const sectorsQuantity = config.sectorsQuantity || config.keys.length;
-      
-      // Helper function to ensure arrays are of the correct length, filled with true if too short
-      const ensureArrayLength = (array, length, fillValue = true) => {
-        if (array.length < length) {
+    const sectorsQuantity = config.sectorsQuantity || config.keys.length;
+    
+    // Helper function to ensure arrays are of the correct length, filled with true if too short
+    const ensureArrayLength = (array, length, fillValue = true) => {
+        if (!Array.isArray(array)) {
+            return new Array(length).fill(array); // Use `array` as the fillValue since `array` is the value provided
+        } else if (array.length < length) {
             return array.concat(new Array(length - array.length).fill(fillValue));
         }
-          return array;
-      };
+        return array;
+    };
 
-      this.configs.push({
-          outerRadius: config.outerRadius,
-          innerRadius: config.innerRadius,
-          sectorsQuantity: sectorsQuantity,
-          showSectors: config.showSectors || [],
-          circleRotation: config.circleRotation * Math.PI / 180 || 0, // Convert degrees to radians
-          titlesRotation: config.titlesRotation * Math.PI / 180, // Convert degrees to radians
-          keys: ensureArrayLength(config.keys || [], sectorsQuantity, ''),
+    // Determine if rotateWordsWithSectors is explicitly set to false, default is true
+    const rotateWordsWithSectors = false;
+    // const rotateWordsWithSectors = config.rotateWordsWithSectors !== false;
 
-          lineColor: config.lineColor || 'black', // Default line color
-          lineWidth: config.lineWidth || 1, // Default line width
-          fillColors: config.fillColors || [], // Default to empty array
-          
-          textSize: config.textSize || '16px', // Default text size
-          textColor: config.textColor || 'black', // Default text color
-          textWeight: config.textWeight || 'normal', // Default text weight
-          textXShift: config.textXShift || 0, // Default X shift of 0
-          textYShift: config.textYShift || 0, // Default Y shift of 0
-          
-          showLeftSectorsLine:  ensureArrayLength(config.showLeftSectorsLine || [], sectorsQuantity),
-          showRightSectorsLine:  ensureArrayLength(config.showRightSectorsLine || [], sectorsQuantity),
-          showBottomSectorsArc:  ensureArrayLength(config.showBottomSectorsArc || [], sectorsQuantity),
-          showTopSectorsArc:  ensureArrayLength(config.showTopSectorsArc || [], sectorsQuantity),
-          showBoundaryCircles: config.showBoundaryCircles !== undefined ? config.showBoundaryCircles : false, // Default to false
-          circleInTheCenter: config.circleInTheCenter || false,
-      });
+    let innerTextRotation = ensureArrayLength(config.innerTextRotation || [], sectorsQuantity, 0);
+    if (rotateWordsWithSectors) {
+        innerTextRotation = new Array(sectorsQuantity).fill(0).map((_, index) => index * (360 / sectorsQuantity));
+    } 
+
+    this.configs.push({
+        outerRadius: config.outerRadius,
+        innerRadius: config.innerRadius,
+        sectorsQuantity: sectorsQuantity,
+        showSectors: config.showSectors || [],
+            
+        circleRotation: this.degToRad(config.circleRotation) || 0,
+        titlesRotation: this.degToRad(config.titlesRotation) || 0,
+        keys: ensureArrayLength(config.keys || [], sectorsQuantity, ''),
+
+        lineColor: config.lineColor || 'black', // Default line color
+        lineWidth: config.lineWidth || 1, // Default line width
+        fillColors: config.fillColors || [], // Default to empty array
+        
+        textSize: config.textSize || '16px', // Default text size
+        textColor: config.textColor || 'black', // Default text color
+        textWeight: config.textWeight || 'normal', // Default text weight
+        textXShift: config.textXShift || 0, // Default X shift of 0
+        textYShift: config.textYShift || 0, // Default Y shift of 0
+        innerTextRotation: innerTextRotation,
+        // innerTextRotation: ensureArrayLength(config.innerTextRotation || [], sectorsQuantity, 0), // Default rotation of 0 degrees for each sector
+        
+        showLeftSectorsLine:  ensureArrayLength(config.showLeftSectorsLine || [], sectorsQuantity),
+        showRightSectorsLine:  ensureArrayLength(config.showRightSectorsLine || [], sectorsQuantity),
+        showBottomSectorsArc:  ensureArrayLength(config.showBottomSectorsArc || [], sectorsQuantity),
+        showTopSectorsArc:  ensureArrayLength(config.showTopSectorsArc || [], sectorsQuantity),
+        showBoundaryCircles: config.showBoundaryCircles !== undefined ? config.showBoundaryCircles : false, // Default to false
+        circleInTheCenter: config.circleInTheCenter || false,
+    });
+  };
+
+  this.degToRad = function(degrees) {
+    return degrees * Math.PI / 180;
   };
 
   this.draw = function() {
@@ -79,7 +97,7 @@ function MultiCircleChart(canvasId) {
 
       this.fillSector(config, index, centerX, centerY, sectorAngle, sectorsAngle);
       this.drawSectorLines(config, centerX, centerY, sectorAngle, sectorsAngle, index);
-      this.drawSectorText(config, key, centerX, centerY, titleAngle);
+      this.drawSectorText(config, key, centerX, centerY, titleAngle, index);
   };
 
   this.fillSector = function(config, index, centerX, centerY, sectorAngle, sectorsAngle) {
@@ -148,17 +166,32 @@ function MultiCircleChart(canvasId) {
   };
 
 
-  this.drawSectorText = function(config, key, centerX, centerY, titleAngle) {
+  this.drawSectorText = function(config, key, centerX, centerY, titleAngle, index) {
       if (key !== "") {
-          const textX = centerX + (Math.cos(titleAngle) * (config.outerRadius + (config.innerRadius > 0 ? config.innerRadius : 0))) / 2;
-          const textY = centerY + (Math.sin(titleAngle) * (config.outerRadius + (config.innerRadius > 0 ? config.innerRadius : 0))) / 2;
-          const shiftedTextX = textX + config.textXShift;// Apply the shift X values
-          const shiftedTextY = textY + config.textYShift;// Apply the shift Y values
-          this.context.fillStyle = config.textColor;
-          this.context.font = `${config.textWeight} ${config.textSize} Arial`;
-          this.context.textAlign = "center";
-          this.context.textBaseline = "middle";
-          this.context.fillText(key, shiftedTextX, shiftedTextY);
+        const textRotation = this.degToRad(config.innerTextRotation[index]); // Convert degrees to radians
+        const textX = centerX + (Math.cos(titleAngle) * (config.outerRadius + (config.innerRadius > 0 ? config.innerRadius : 0))) / 2;
+        const textY = centerY + (Math.sin(titleAngle) * (config.outerRadius + (config.innerRadius > 0 ? config.innerRadius : 0))) / 2;
+        const shiftedTextX = textX + config.textXShift;// Apply the shift X values
+        const shiftedTextY = textY + config.textYShift;// Apply the shift Y values
+
+        // // Save the current context state
+        // this.context.save();
+        // this.context.translate(shiftedTextX, shiftedTextY);
+        // this.context.rotate(textRotation);
+        // this.context.fillStyle = config.textColor;
+        // this.context.font = `${config.textWeight} ${config.textSize} Arial`;
+        // this.context.textAlign = "center";
+        // this.context.textBaseline = "middle";
+        // this.context.fillText(key, 0, 0); // Draw text at the rotated position
+
+        // // Restore the context to its original state
+        // this.context.restore();
+
+        this.context.fillStyle = config.textColor;
+        this.context.font = `${config.textWeight} ${config.textSize} Arial`;
+        this.context.textAlign = "center";
+        this.context.textBaseline = "middle";
+        this.context.fillText(key, shiftedTextX, shiftedTextY);
       }
   };
 
@@ -190,7 +223,7 @@ function MultiCircleChart(canvasId) {
     
     indices.forEach((chartIndex) => {
         if (chartIndex >= 0 && chartIndex < this.configs.length) {
-            const radians = rotationDegrees * Math.PI / 180; // Convert degrees to radians
+            const radians = this.degToRad(rotationDegrees); // Convert degrees to radians
             this.configs[chartIndex].circleRotation = radians;
             this.configs[chartIndex].titlesRotation = radians;
         } else {
