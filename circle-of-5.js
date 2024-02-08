@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	// Draw all configured charts
 	circleOfFiveChart.draw();
+
+	const rotateWordsSwitch =  document.getElementById('rotateWordsSwitch')
+	rotateWordsSwitch.checked = RotateWords;
+	rotateWordsSwitch.addEventListener('change', function() {
+		RotateWords = this.checked;
+		console.log('RotateWords is now:', RotateWords); // For demonstration
+  	circleOfFiveChart.updateRotateWordsSetting([0, 1, 2], RotateWords);
+	});
 	
 	// circleOfFiveChart.rotateChart([0,1,2], newAngleDegrees);
 

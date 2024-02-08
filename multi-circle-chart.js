@@ -6,25 +6,6 @@ function MultiCircleChart(canvasId) {
   this.addConfig = function(config) {
     const sectorsQuantity = config.sectorsQuantity || config.keys.length;
     
-    // Helper function to ensure arrays are of the correct length, filled with true if too short
-    const ensureArrayLength = (array, length, fillValue = true) => {
-        if (!Array.isArray(array)) {
-            return new Array(length).fill(array); // Use `array` as the fillValue since `array` is the value provided
-        } else if (array.length < length) {
-            return array.concat(new Array(length - array.length).fill(fillValue));
-        }
-        return array;
-    };
-
-    // Determine if rotateWordsWithSectors is explicitly set to false, default is true
-    const rotateWordsWithSectors = false;
-    // const rotateWordsWithSectors = config.rotateWordsWithSectors !== false;
-
-    let innerTextRotation = ensureArrayLength(config.innerTextRotation || [], sectorsQuantity, 0);
-    if (rotateWordsWithSectors) {
-        innerTextRotation = new Array(sectorsQuantity).fill(0).map((_, index) => index * (360 / sectorsQuantity));
-    } 
-
     this.configs.push({
         outerRadius: config.outerRadius,
         innerRadius: config.innerRadius,
@@ -33,7 +14,7 @@ function MultiCircleChart(canvasId) {
             
         circleRotation: this.degToRad(config.circleRotation) || 0,
         titlesRotation: this.degToRad(config.titlesRotation) || 0,
-        keys: ensureArrayLength(config.keys || [], sectorsQuantity, ''),
+        keys: this.ensureArrayLength(config.keys || [], sectorsQuantity, ''),
 
         lineColor: config.lineColor || 'black', // Default line color
         lineWidth: config.lineWidth || 1, // Default line width
@@ -44,16 +25,26 @@ function MultiCircleChart(canvasId) {
         textWeight: config.textWeight || 'normal', // Default text weight
         textXShift: config.textXShift || 0, // Default X shift of 0
         textYShift: config.textYShift || 0, // Default Y shift of 0
-        innerTextRotation: innerTextRotation,
-        // innerTextRotation: ensureArrayLength(config.innerTextRotation || [], sectorsQuantity, 0), // Default rotation of 0 degrees for each sector
+        innerTextRotation: this.ensureArrayLength(config.innerTextRotation || [], sectorsQuantity, 0), // Default rotation of 0 degrees for each sector
+        rotateWordsWithSectors: this.ensureArrayLength(config.rotateWordsWithSectors || [], sectorsQuantity, false),
         
-        showLeftSectorsLine:  ensureArrayLength(config.showLeftSectorsLine || [], sectorsQuantity),
-        showRightSectorsLine:  ensureArrayLength(config.showRightSectorsLine || [], sectorsQuantity),
-        showBottomSectorsArc:  ensureArrayLength(config.showBottomSectorsArc || [], sectorsQuantity),
-        showTopSectorsArc:  ensureArrayLength(config.showTopSectorsArc || [], sectorsQuantity),
+        showLeftSectorsLine:  this.ensureArrayLength(config.showLeftSectorsLine || [], sectorsQuantity),
+        showRightSectorsLine:  this.ensureArrayLength(config.showRightSectorsLine || [], sectorsQuantity),
+        showBottomSectorsArc:  this.ensureArrayLength(config.showBottomSectorsArc || [], sectorsQuantity),
+        showTopSectorsArc:  this.ensureArrayLength(config.showTopSectorsArc || [], sectorsQuantity),
         showBoundaryCircles: config.showBoundaryCircles !== undefined ? config.showBoundaryCircles : false, // Default to false
         circleInTheCenter: config.circleInTheCenter || false,
     });
+  };
+
+   // Method to ensure arrays are of the correct length, filled with fillValue if too short
+  this.ensureArrayLength = function(array, length, fillValue = true) {
+    if (!Array.isArray(array)) {
+      return new Array(length).fill(array); // Use `array` as the fillValue since `array` is the value provided
+    } else if (array.length < length) {
+      return array.concat(new Array(length - array.length).fill(fillValue));
+    }
+    return array;
   };
 
   this.degToRad = function(degrees) {
@@ -165,45 +156,47 @@ function MultiCircleChart(canvasId) {
     }
   };
 
-
   this.drawSectorText = function(config, key, centerX, centerY, titleAngle, index) {
       if (key !== "") {
-        const textRotation = this.degToRad(config.innerTextRotation[index]); // Convert degrees to radians
+        let textRotation = this.degToRad(config.innerTextRotation[index]);
+        if (config.rotateWordsWithSectors[index]) {
+            const sectorAngle = (Math.PI * 2) / config.sectorsQuantity * index;
+            textRotation = sectorAngle + config.circleRotation + Math.PI / 2;
+        } 
         const textX = centerX + (Math.cos(titleAngle) * (config.outerRadius + (config.innerRadius > 0 ? config.innerRadius : 0))) / 2;
         const textY = centerY + (Math.sin(titleAngle) * (config.outerRadius + (config.innerRadius > 0 ? config.innerRadius : 0))) / 2;
-        const shiftedTextX = textX + config.textXShift;// Apply the shift X values
-        const shiftedTextY = textY + config.textYShift;// Apply the shift Y values
+        // Adjust shift based on sector's rotation
+        const adjustedTextXShift = Math.cos(textRotation) * config.textXShift - Math.sin(textRotation) * config.textYShift;
+        const adjustedTextYShift = Math.sin(textRotation) * config.textXShift + Math.cos(textRotation) * config.textYShift;
 
-        // // Save the current context state
-        // this.context.save();
-        // this.context.translate(shiftedTextX, shiftedTextY);
-        // this.context.rotate(textRotation);
-        // this.context.fillStyle = config.textColor;
-        // this.context.font = `${config.textWeight} ${config.textSize} Arial`;
-        // this.context.textAlign = "center";
-        // this.context.textBaseline = "middle";
-        // this.context.fillText(key, 0, 0); // Draw text at the rotated position
+        // Apply adjusted shift to base text position
+        const shiftedTextX = textX + adjustedTextXShift;
+        const shiftedTextY = textY + adjustedTextYShift;
 
-        // // Restore the context to its original state
-        // this.context.restore();
-
+        // Save the current context state
+        this.context.save();
+        this.context.translate(shiftedTextX, shiftedTextY);
+        this.context.rotate(textRotation);
         this.context.fillStyle = config.textColor;
         this.context.font = `${config.textWeight} ${config.textSize} Arial`;
         this.context.textAlign = "center";
         this.context.textBaseline = "middle";
-        this.context.fillText(key, shiftedTextX, shiftedTextY);
+        this.context.fillText(key, 0, 0); // Draw text at the rotated position
+
+        // Restore the context to its original state
+        this.context.restore();
       }
   };
 
   this.drawBoundaryCircles = function(centerX, centerY, config) {
-      this.context.beginPath();
-      this.context.lineWidth = config.lineWidth;
-      this.context.arc(centerX, centerY, config.outerRadius, 0, Math.PI * 2);
-      this.context.stroke();
+    this.context.beginPath();
+    this.context.lineWidth = config.lineWidth;
+    this.context.arc(centerX, centerY, config.outerRadius, 0, Math.PI * 2);
+    this.context.stroke();
 
-      this.context.beginPath();
-      this.context.arc(centerX, centerY, config.innerRadius, 0, Math.PI * 2);
-      this.context.stroke();
+    this.context.beginPath();
+    this.context.arc(centerX, centerY, config.innerRadius, 0, Math.PI * 2);
+    this.context.stroke();
   };
 
   // Method to draw a circle in the center of the canvas
@@ -231,6 +224,21 @@ function MultiCircleChart(canvasId) {
         }
     });
 
+    this.draw(); // Redraw once after updating all necessary configurations
+  };
+  
+  this.updateRotateWordsSetting = function(chartIndexOrIndices, newValue) {
+    const indices = Array.isArray(chartIndexOrIndices) ? chartIndexOrIndices : [chartIndexOrIndices];
+    
+    indices.forEach((chartIndex) => {
+      if (chartIndex >= 0 && chartIndex < this.configs.length) {
+        // Update rotateWordsWithSectors for the specified config
+        this.configs[chartIndex].rotateWordsWithSectors = this.ensureArrayLength([], this.configs[chartIndex].sectorsQuantity, newValue);
+      } else {
+        console.log("Invalid chart index:", chartIndex);
+      }
+    });
+  
     this.draw(); // Redraw once after updating all necessary configurations
   };
 

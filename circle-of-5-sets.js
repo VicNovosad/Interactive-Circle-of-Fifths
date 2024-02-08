@@ -1,3 +1,6 @@
+let RotateWords = true;
+const CurveStillWords = true;
+
 const majorChords = {
 	canvasId: 'canvas-circle-of-five',
 	outerRadius: 270,
@@ -7,6 +10,8 @@ const majorChords = {
 	titlesRotation: -90, // Degrees
 	keys: ['C', 'G', 'D', 'A', 'E', 'B/C♭', 'F♯/G♭', 'C♯/D♭', 'A♭', 'E♭', 'B♭', 'F'],
 	// innerTextRotation: [0,0,0,0,0,0,0,0,0,0,0,0],
+	// innerTextRotation: 60,
+	rotateWordsWithSectors: RotateWords,
 	showBoundaryCircles: true,
 	// fillColors: ['rgba(205, 133, 63, 0.4)','rgba(184, 134, 11, 0.4)','rgba(189, 183, 107, 0.4)','rgba(154, 205, 50, 0.4)','rgba(107, 142, 35, 0.4)','rgba(32, 178, 170, 0.4)','rgba(47, 79, 79, 0.4)','rgba(70, 120, 180, 0.4)','rgba(65, 105, 225, 0.4)','rgba(72, 61, 139, 0.4)','rgba(148, 0, 211, 0.4)','rgba(199, 21, 133, 0.4)']
 	// fillColors: ['rgba(240,255,240, 1)','rgba(245,255,250, 1)','rgba(240,255,255, 1)','rgba(240,248,255, 1)','rgba(248,248,255, 1)','rgba(245,245,245, 1)','rgba(255,245,238, 1)','rgba(245,245,220, 1)','rgba(253,245,230, 1)','rgba(255,250,240, 1)','rgba(255,255,240, 1)','rgba(250,235,215, 1)'],
@@ -25,6 +30,7 @@ const minorChords = {
 	circleRotation: -90, // Degrees
 	titlesRotation: -90, // Degrees
 	showBoundaryCircles: true,
+	rotateWordsWithSectors: RotateWords,
 	keys: ['Am', 'Em', 'Bm', 'F♯m', 'C♯m', 'G♯m', 'E♭m', 'B♭m', 'Fm', 'Cm', 'Gm', 'Dm'],
 	// fillColors: ['rgba(160, 82, 45, 0.3)','rgba(139, 69, 19, 0.3)','rgba(128, 128, 0, 0.3)','rgba(85, 107, 47, 0.3)','rgba(34, 139, 34, 0.3)','rgba(0, 100, 0, 0.3)','rgba(72, 61, 139, 0.3)','rgba(75, 0, 120, 0.3)','rgba(153, 50, 204, 0.3)','rgba(148, 0, 211, 0.3)','rgba(139, 0, 139, 0.3)','rgba(128, 0, 128, 0.3)']
 	// fillColors: ['rgba(250,128,114, .6)', 'LightPink', 'rgba(255,127,80, .7)', 'Khaki', 'Plum', 'LightGreen', 'MediumAquamarine', 'PaleTurquoise', 'LightBlue', 'BlanchedAlmond', 'Honeydew', 'MistyRose']
@@ -44,6 +50,7 @@ const diminishedChords = {
 	circleRotation: -90, // Degrees
 	titlesRotation: -90, // Degrees
 	showBoundaryCircles: true,
+	rotateWordsWithSectors: RotateWords,
 	circleInTheCenter: '#182951',
 	keys: ['B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F', 'C', 'G', 'D', 'A', 'E'],
 	lineColor: '#000', // Black lines
@@ -69,6 +76,7 @@ const majorRedFrameConfig = {
 	sectorsQuantity: 12,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
 	keys: ['IV', 'I (Key)', 'V', '', '', '', '', '', '', '', '', ''],
 	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
 	showTopSectorsArc: [true, true, true, true, false, false, false, false, false, false, false, false],
@@ -90,6 +98,7 @@ const manorRedFrameConfig = {
 	sectorsQuantity: 0,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
 	keys: ['ii', 'iii', 'iv', '', '', '', '', '', '', '', '', ''],
 	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
 	showTopSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
@@ -110,6 +119,7 @@ const diminishedRedFrameConfig = {
 	sectorsQuantity: 0,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
 	keys: ['', 'vii', '', '', '', '', '', '', '', '', '', ''],
 	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
 	showTopSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
@@ -130,6 +140,7 @@ const secondaryDominantRedFrameConfig = {
 	sectorsQuantity: 12,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
 	keys: ['', '', '', 'V of V', '', '', '', '', '', '', '', ''],
 	showSectors: [false, false, false, true, false, false, false, false, false, false, false, false],
 	showTopSectorsArc: [false, false, false, true, false, false, false, false, false, false, false, false],
@@ -141,7 +152,7 @@ const secondaryDominantRedFrameConfig = {
 	lineWidth: 5,
 	textSize: '14px',
 	textYShift: 25,
-	textXShift: 10,
+	// textXShift: 10,
 };
 
 const secondaryDominant2RedFrameConfig = {
@@ -151,6 +162,7 @@ const secondaryDominant2RedFrameConfig = {
 	sectorsQuantity: 12,
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
 	keys: ['', '', '', 'V of V', '', 'V/vi', '', '', '', '', '', ''],
 	showSectors: [false, false, false, false, false, true, false, false, false, false, false, false],
 	showTopSectorsArc: [false, false, false, false, false, true, false, false, false, false, false, false],
@@ -162,5 +174,5 @@ const secondaryDominant2RedFrameConfig = {
 	lineWidth: 5,
 	textSize: '14px',
 	textYShift: 25,
-	textXShift: -5,
+	// textXShift: -5,
 };
