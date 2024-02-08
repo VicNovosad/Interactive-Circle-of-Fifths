@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.removeChild(link); // Clean up
   });
 
+	// Set the initial rotation of the draggableRotator
+	gsap.set("#draggableRotator", { rotation: -90 });
 
 	Draggable.create("#draggableRotator", {
 		type: "rotation",
