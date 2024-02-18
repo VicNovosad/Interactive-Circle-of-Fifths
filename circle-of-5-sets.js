@@ -19,7 +19,9 @@ const majorChords = {
 	// fillColors: ['#fde439','#cddf7f','#b4cfb4','#9abdb0','#84c5dd','#98a8d4','#be9cc6','#e09ebe','#f3a5a7','#f0a47c','#f3ae5f','#f29077'],
 	fillColors: ['#f5e85b','#c8d992','#a9d5be','#83c4ca','#75c0d7','#8584bd','#be83b1','#eb91b5','#ef999c','#f79c41','#f4c93c','#f5e85b'],
 	textSize: '26px',
-	textWeight: '700'
+	textWeight: '700',
+	// lineWidth: 1,
+	// clearMode: true,
 };
 
 const minorChords = {
@@ -51,7 +53,8 @@ const diminishedChords = {
 	titlesRotation: -90, // Degrees
 	showBoundaryCircles: true,
 	rotateWordsWithSectors: RotateWords,
-	circleInTheCenter: '#182951',
+	// circleInTheCenter: '#182951',
+	circleInTheCenter: 'transparent',
 	keys: ['B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F', 'C', 'G', 'D', 'A', 'E'],
 	lineColor: '#000', // Black lines
 	// fillColors: ['#f0d681','#52b09e','#7cc4b4','#89b1d8','#879aaa','#b999a5','#bea8b0','#c16f65','#e49d73','#e58178','#e47743','#eec95b'],
@@ -87,8 +90,26 @@ const majorRedFrameConfig = {
 	lineColor: 'rgba(25, 25, 25, 1)',
 	lineWidth: 5,
 	textSize: '14px',
-	textYShift: 25,
+	textYShift: 28,
 	// textWeight: '700'
+};
+
+const majorRedFrameConfigTopLine = {
+	canvasId: 'canvas-circle-of-five',
+	outerRadius: 215,
+	innerRadius: 120, // Adjusted to fit as the outermost circle
+	sectorsQuantity: 0,
+	circleRotation: -120, // Degrees
+	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
+	keys: ['', '', '', '', '', '', '', '', '', '', '', ''],
+	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
+	showTopSectorsArc: [true, true, true, true, false, true, false, false, false, false, false, false],
+	showLeftSectorsLine: [false, false, false, false, false, false, false, false, false, false, false, false],
+	showRightSectorsLine: [false, false, false, false, false, false, false, false, false, false, false, false],
+	showBottomSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
+	lineColor: 'rgba(165, 25, 25, .3)',
+	lineWidth: 1,
 };
 
 const manorRedFrameConfig = {
@@ -109,7 +130,25 @@ const manorRedFrameConfig = {
 	lineColor: 'rgba(25, 25, 25, 1)',
 	lineWidth: 5,
 	textSize: '14px',
-	textYShift: 20,
+	textYShift: 23,
+};
+
+const manorRedFrameConfigTopLine = {
+	canvasId: 'canvas-circle-of-five',
+	outerRadius: 144,
+	innerRadius: 120, // Adjusted to fit as the outermost circle
+	sectorsQuantity: 0,
+	circleRotation: -120, // Degrees
+	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
+	keys: ['', '', '', '', '', '', '', '', '', '', '', ''],
+	showSectors: [true, true, true, true, true, true, true, true, true, true, true, true],
+	showTopSectorsArc: [true, true, true, false, false, false, false, false, false, false, false, false],
+	showLeftSectorsLine: [false, false, false, false, false, false, false, false, false, false, false, false],
+	showRightSectorsLine: [false, false, false, false, false, false, false, false, false, false, false, false],
+	showBottomSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
+	lineColor: 'rgba(165, 25, 25, .3)',
+	lineWidth: 1,
 };
 
 const diminishedRedFrameConfig = {
@@ -130,7 +169,26 @@ const diminishedRedFrameConfig = {
 	lineColor: 'rgba(25, 25, 25, 1)',
 	lineWidth: 5,
 	textSize: '14px',
-	textYShift: 20,
+	textYShift: 22,
+};
+
+const diminishedRedFrameConfigTopLine = {
+	canvasId: 'canvas-circle-of-five',
+	outerRadius: 74,
+	innerRadius: 50, // Adjusted to fit as the outermost circle
+	sectorsQuantity: 0,
+	circleRotation: -120, // Degrees
+	titlesRotation: -120, // Degrees
+	rotateWordsWithSectors: CurveStillWords,
+	keys: ['', '', '', '', '', '', '', '', '', '', '', ''],
+	showSectors: [false, true, false, true, true, true, true, true, true, true, true, true],
+	showTopSectorsArc: [false, true, false, false, false, false, false, false, false, false, false, false],
+	showLeftSectorsLine: [false, false, false, false, false, false, false, false, false, false, false, false],
+	showRightSectorsLine: [false, false, false, false, false, false, false, false, false, false, false, false],
+	showBottomSectorsArc: [false, false, false, false, false, false, false, false, false, false, false, false],
+	lineColor: 'rgba(165, 25, 25, .3)',
+	lineWidth: 1,
+	textSize: '14px',
 };
 
 const secondaryDominantRedFrameConfig = {
@@ -151,7 +209,7 @@ const secondaryDominantRedFrameConfig = {
 	lineColor: 'rgba(25, 25, 25, .6)',
 	lineWidth: 5,
 	textSize: '14px',
-	textYShift: 25,
+	textYShift: 27,
 	// textXShift: 10,
 };
 
@@ -163,7 +221,7 @@ const secondaryDominant2RedFrameConfig = {
 	circleRotation: -120, // Degrees
 	titlesRotation: -120, // Degrees
 	rotateWordsWithSectors: CurveStillWords,
-	keys: ['', '', '', 'V of V', '', 'V/vi', '', '', '', '', '', ''],
+	keys: ['', '', '', '', '', 'V of vi', '', '', '', '', '', ''],
 	showSectors: [false, false, false, false, false, true, false, false, false, false, false, false],
 	showTopSectorsArc: [false, false, false, false, false, true, false, false, false, false, false, false],
 	showLeftSectorsLine: [false, false, false, false, false, true, false, false, false, false, false, false],
@@ -173,6 +231,6 @@ const secondaryDominant2RedFrameConfig = {
 	lineColor: 'rgba(25, 25, 25, .6)',
 	lineWidth: 5,
 	textSize: '14px',
-	textYShift: 25,
+	textYShift: 27,
 	// textXShift: -5,
 };

@@ -13,10 +13,12 @@
 
   <div class="container">
     <div class="tab">
-      <button class="tab-links active" data-tab="Tab1">Circle of Fifths</button>
+      <button class="tab-links" data-tab="Tab1">Circle of Fifths</button>
+      <button class="tab-links active" data-tab="Tab3">Fortune Wheel</button>
       <button class="tab-links" data-tab="Tab2">Color Wheel</button>
+      <button class="tab-links active" data-tab="Tab4">Daily Routine Clock</button>
     </div>
-    <div id="Tab1" class="tab-content">
+    <div id="Tab1" class="tab-content" style="display: none;">
       <h1>Interactive Circle of Fifths</h1>
       <p> Helps to play chord progression for any note.The image below show chord progression for C major. Likewise rotate
         the circle for the required corresponding note and get the chord progression.</p>
@@ -121,6 +123,28 @@
         </div>
       </div>
     </div>
+    <div id="Tab3" class="tab-content" style="display: block;">
+      <h1>Fortune Wheel</h1>
+      <p></p>
+      <div class="image-grid">
+        <div class="canvas-wrap">
+          <div class="canvas-container">
+            <canvas id="fortune-wheel" width="550" height="550"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="Tab4" class="tab-content" style="display: none;">
+      <h1>Daily Schedule Colors Wall Clock</h1>
+      <p></p>
+      <div class="image-grid">
+        <div class="canvas-wrap">
+          <div class="canvas-container">
+            <canvas id="daily-schedule" width="550" height="550"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -135,6 +159,10 @@
   <script src="circle-of-5.js"></script>
 
   <script src="color-wheel-sets.js"></script>
+  
+  <script src="fortune-wheel.js"></script>
+
+  <script src="daily-routine.js"></script>
 
 </body>
 

@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	circleOfFiveChart.addConfig(minorChords);
 	circleOfFiveChart.addConfig(diminishedChords);
 	circleOfFiveChart.addConfig(majorRedFrameConfig);
+	circleOfFiveChart.addConfig(majorRedFrameConfigTopLine);
 	circleOfFiveChart.addConfig(manorRedFrameConfig);
+	circleOfFiveChart.addConfig(manorRedFrameConfigTopLine);
 	circleOfFiveChart.addConfig(diminishedRedFrameConfig);
+	circleOfFiveChart.addConfig(diminishedRedFrameConfigTopLine);
 	circleOfFiveChart.addConfig(secondaryDominantRedFrameConfig);
 	circleOfFiveChart.addConfig(secondaryDominant2RedFrameConfig);
 	
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	rotateWordsSwitch.checked = RotateWords;
 	rotateWordsSwitch.addEventListener('change', function() {
 		RotateWords = this.checked;
-		console.log('RotateWords is now:', RotateWords); // For demonstration
+		// console.log('RotateWords is now:', RotateWords); // For demonstration
   	circleOfFiveChart.updateRotateWordsSetting([0, 1, 2], RotateWords);
 	});
 	

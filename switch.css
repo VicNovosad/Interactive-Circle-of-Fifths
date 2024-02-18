@@ -14,7 +14,7 @@
 	--primary: hsl(var(--hue), 90%, 50%);
 	--trans-dur: 0.6s;
 	--trans-timing: cubic-bezier(0.65, 0, 0.35, 1);
-  --alpha: 0.7;
+  --alpha: .9;
 	/* font-size: calc(40px + (60 - 40) * (100vw - 320px) / (2560 - 320)); */
 }
 
@@ -265,7 +265,7 @@ body {
     cursor: pointer;
     outline: none;
     position: relative;
-    box-shadow: -5px -5px 10px hsl(var(--hue), 10%, 25%), 
+    box-shadow: -3.5px -3.5px 5px hsl(var(--hue), 10%, 25%), 
                 5px 5px 10px hsl(var(--hue), 10%, 15%);
     transition: all 0.3s ease;
   }
@@ -287,10 +287,10 @@ body {
   justify-content: start;
   gap: 10px; /* Adjust the gap between buttons as needed */
   background-color: hsl(var(--hue), 10%, 20%); /* Background color of the tab container */
-  padding: 12px 20px; /* Padding around the buttons */
+  padding: 12px 20px 12px; /* Padding around the buttons */
   border-radius: 10px; /* Soft rounded corners for the container */
-  box-shadow: -5px -5px 10px hsl(var(--hue), 10%, 18%), 
-              5px 5px 10px hsl(var(--hue), 10%, 10%); /* Neumorphism shadow */
+  box-shadow: -2px -2px 5px hsl(var(--hue), 0%, 15%), 
+              5px 5px 35px hsl(var(--hue), 0%, 10%); /* Neumorphism shadow */
 }
 
 .tab-links {

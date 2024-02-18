@@ -2,6 +2,7 @@ function MultiCircleChart(canvasId) {
   this.canvas = document.getElementById(canvasId);
   this.context = this.canvas.getContext('2d');
   this.configs = []; // Array to hold multiple chart configurations
+  this.loadedImages = []; // Store preloaded images
 
   this.addConfig = function(config) {
     const sectorsQuantity = config.sectorsQuantity || config.keys.length;
@@ -27,11 +28,14 @@ function MultiCircleChart(canvasId) {
         textYShift: config.textYShift || 0, // Default Y shift of 0
         innerTextRotation: this.ensureArrayLength(config.innerTextRotation || [], sectorsQuantity, 0), // Default rotation of 0 degrees for each sector
         rotateWordsWithSectors: this.ensureArrayLength(config.rotateWordsWithSectors || [], sectorsQuantity, false),
+        sectorImages: this.ensureArrayLength(config.sectorImages || [], sectorsQuantity, null),
+        rotateImagesWithSectors: this.ensureArrayLength(config.rotateImagesWithSectors || [], sectorsQuantity, false),
         
         showLeftSectorsLine:  this.ensureArrayLength(config.showLeftSectorsLine || [], sectorsQuantity),
         showRightSectorsLine:  this.ensureArrayLength(config.showRightSectorsLine || [], sectorsQuantity),
         showBottomSectorsArc:  this.ensureArrayLength(config.showBottomSectorsArc || [], sectorsQuantity),
         showTopSectorsArc:  this.ensureArrayLength(config.showTopSectorsArc || [], sectorsQuantity),
+        // clearMode:  this.ensureArrayLength(config.clearMode || [], sectorsQuantity, false),
         showBoundaryCircles: config.showBoundaryCircles !== undefined ? config.showBoundaryCircles : false, // Default to false
         circleInTheCenter: config.circleInTheCenter || false,
     });
@@ -49,6 +53,38 @@ function MultiCircleChart(canvasId) {
 
   this.degToRad = function(degrees) {
     return degrees * Math.PI / 180;
+  };
+
+  this.preloadImages = function() {
+    const imageUrls = this.configs.flatMap(config => config.sectorImages.filter(url => url)); // Filter out falsy values
+    const uniqueUrls = [...new Set(imageUrls)];
+    
+    // Map each URL to a promise that resolves when the image is loaded
+    const loadPromises = uniqueUrls.map(url => {
+      return new Promise((resolve, reject) => {
+        if (!this.loadedImages[url]) { // Only load if not already loaded
+          const img = new Image();
+          img.onload = () => {
+            this.loadedImages[url] = img;
+            resolve(); // Resolve the promise when the image is loaded
+          };
+          img.onerror = reject; // Reject the promise on an error
+          img.src = url;
+        } else {
+          resolve(); // Immediately resolve if already loaded
+        }
+      });
+    });
+    
+    return Promise.all(loadPromises); // Return a promise that resolves when all images are loaded
+  };
+
+  this.startDrawing = function() {
+    this.preloadImages().then(() => {
+      this.draw(); // Start drawing only after all images are preloaded
+    }).catch(error => {
+      console.error("Error preloading images:", error);
+    });
   };
 
   this.draw = function() {
@@ -89,6 +125,7 @@ function MultiCircleChart(canvasId) {
       this.fillSector(config, index, centerX, centerY, sectorAngle, sectorsAngle);
       this.drawSectorLines(config, centerX, centerY, sectorAngle, sectorsAngle, index);
       this.drawSectorText(config, key, centerX, centerY, titleAngle, index);
+      this.drawSectorImage(config, index, centerX, centerY, sectorAngle, sectorsAngle);
   };
 
   this.fillSector = function(config, index, centerX, centerY, sectorAngle, sectorsAngle) {
@@ -141,6 +178,7 @@ function MultiCircleChart(canvasId) {
     if (!config.showTopSectorsArc[index]) return;
 
     this.context.beginPath();
+    this.context.lineWidth = config.lineWidth;
     this.context.arc(centerX,centerY,config.outerRadius,sectorAngle - sectorsAngle / 2,sectorAngle + sectorsAngle / 2);
     this.context.stroke();
   };
@@ -188,6 +226,45 @@ function MultiCircleChart(canvasId) {
       }
   };
 
+  this.drawSectorImage = function(config, index, centerX, centerY, sectorAngle, sectorsAngle) {
+    const imageUrl = config.sectorImages[index];
+    if (!imageUrl || !this.loadedImages[imageUrl]) return; // If there's no image for this sector, just return.
+
+    const image = this.loadedImages[imageUrl]; // Directly use the preloaded image
+
+    // Calculate the center position of the image
+    const radiusMidpoint = config.innerRadius + (config.outerRadius - config.innerRadius) / 2;
+    const baseImageX = centerX + Math.cos(sectorAngle) * radiusMidpoint;
+    const baseImageY = centerY + Math.sin(sectorAngle) * radiusMidpoint;
+
+    // Calculate the actual drawing position, taking into account the image's dimensions
+    const imageX = baseImageX - image.width / 2;
+    const imageY = baseImageY - image.height / 2;
+
+    this.context.save(); // Save the current state of the canvas
+
+    let imageRotation = 0;
+    if (config.rotateImagesWithSectors[index]) {
+        let additionalRotation = config.rotateImagesWithSectors[index];
+        if (typeof additionalRotation === "number" && additionalRotation >= 0 && additionalRotation <= 360) {
+            additionalRotation = this.degToRad(additionalRotation);
+        } else {
+            additionalRotation = 0;
+        }
+        imageRotation = sectorAngle + additionalRotation + Math.PI / 2; // Adjust for image centering
+    }
+
+    this.context.translate(baseImageX, baseImageY);
+    this.context.rotate(imageRotation);
+    this.context.translate(-baseImageX, -baseImageY);
+
+    // Draw the image at the calculated position, now potentially rotated
+    this.context.drawImage(image, imageX, imageY);
+
+    this.context.restore(); // Restore the canvas state
+  };
+
+
   this.drawBoundaryCircles = function(centerX, centerY, config) {
     this.context.beginPath();
     this.context.lineWidth = config.lineWidth;
@@ -213,7 +290,7 @@ function MultiCircleChart(canvasId) {
 
   this.rotateChart = function(chartIndexOrIndices, rotationDegrees) {
     const indices = Array.isArray(chartIndexOrIndices) ? chartIndexOrIndices : [chartIndexOrIndices];
-    
+
     indices.forEach((chartIndex) => {
         if (chartIndex >= 0 && chartIndex < this.configs.length) {
             const radians = this.degToRad(rotationDegrees); // Convert degrees to radians
@@ -224,7 +301,7 @@ function MultiCircleChart(canvasId) {
         }
     });
 
-    this.draw(); // Redraw once after updating all necessary configurations
+    this.draw(); // Call draw directly for immediate updates
   };
   
   this.updateRotateWordsSetting = function(chartIndexOrIndices, newValue) {
