@@ -257,6 +257,12 @@ function MultiCircleChart(canvasId) {
     this.context.translate(baseImageX, baseImageY);
     this.context.rotate(imageRotation);
     this.context.translate(-baseImageX, -baseImageY);
+    this.context.scale(1, 1.15);
+    // this.context.transform(.1, 0, .2, .2, .1, .1); 
+    this.context.shadowOffsetX = 5; 
+    this.context.shadowOffsetY = 6; 
+    this.context.shadowColor = "rgba(0, 0, 0, 0.5)";
+    this.context.shadowBlur = 50;
 
     // Draw the image at the calculated position, now potentially rotated
     this.context.drawImage(image, imageX, imageY);
